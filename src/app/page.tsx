@@ -1,5 +1,8 @@
+"use client";
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRef } from "react";
+import ProductCarousel from '@/components/ProductCarousel'
 
 // This page uses Hybrid ISR - it will be statically generated but can be revalidated
 export const revalidate = 3600 // Revalidate every hour
@@ -17,6 +20,29 @@ export default function HomePage() {
   yesterday.setDate(today.getDate() - 1)
   const todayLabel = formatDateAsMmDdYy(today)
   const yesterdayLabel = formatDateAsMmDdYy(yesterday)
+  
+  // To make the carousel scrollable
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const scrollLeft = () => {
+    if (carouselRef.current) {
+      carouselRef.current.scrollBy({ left: -300, behavior: "smooth" });
+    }
+  };
+
+  const scrollRight = () => {
+    if (carouselRef.current) {
+      carouselRef.current.scrollBy({ left: 300, behavior: "smooth" });
+    }
+  };
+
+  const featuredProducts = [
+    { name: 'Pageant Director', price: '$15.99', img: '/images/Paegent_Director_Mercy_Beret.png' },
+    { name: 'Chef', price: '$15.99', img: '/images/Chef_Anne.png' },
+    { name: 'Hotel Hostess', price: '$15.99', img: '/images/Hotel-Hostess-Eileen.png' },
+    { name: 'Photographer', price: '$15.99', img: '/images/Photographer_May_see.png' },
+    { name: 'Lawyer', price: '$15.99', img: '/images/Lawyer_Krista.png' },
+  ]
+
   return (
     <main className="min-h-screen pt-16" style={{ backgroundColor: '#FCF7D9' }}>
       {/* Hero Section */}
@@ -33,7 +59,7 @@ export default function HomePage() {
         </div>
         
         {/* Chef Character Vector */}
-        <div className="absolute inset-0 z-10">
+        <div className="featured mb-12 flex justify-end">
           <Image
             src="/images/Chef-Anne-Vector.png"
             alt="Chef Anne Character"
@@ -41,7 +67,7 @@ export default function HomePage() {
             height={600}
             className="absolute object-contain"
             style={{
-              right: '0px',
+              right: '-36px',
               top: '520px'
             }}
             priority
@@ -71,9 +97,24 @@ export default function HomePage() {
       </section>
 
       {/* Featured Items Section */}
-      <section className="py-16" style={{ backgroundColor: '#FCF7D9' }}>
+      <section className="pt-16 pb-16" style={{ backgroundColor: '#FCF7D9' }}>
         <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center mb-8">
+          {/* Chef Character Vector */}
+        <div className="featured mb-12 flex justify-end">
+          <Image
+            src="/images/Chef-Anne-Vector.png"
+            alt="Chef Anne Character"
+            width={600}
+            height={600}
+            className="absolute object-contain"
+            style={{
+              right: '0px',
+              top: '520px'
+            }}
+            priority
+          />
+        </div>
+          <div className="flex justify-between items-center mb-8 px-4 pt-20">
             <h2 className="text-4xl font-bold text-brown-800">
               Featured items
             </h2>
@@ -81,58 +122,14 @@ export default function HomePage() {
               Release Calendar &gt;
             </Link>
           </div>
-          
-          {/* Product Carousel */}
-          <div className="relative pt-14">
-            <div className="flex space-x-6 overflow-x-auto pb-4">
-              {[
-                { name: "Pageant Director", price: "$15.99", img: "/images/Paegent_Director_Mercy_Beret.png" },
-                { name: "Chef", price: "$15.99", img: "/images/Chef_Anne.png" },
-                { name: "Hotel Hostess", price: "$15.99", img: "/images/Hotel-Hostess-Eileen.png" },
-                { name: "Photographer", price: "$15.99", img: "/images/Photographer_May_see.png" },
-                { name: "Lawyer", price: "$15.99", img: "/images/Lawyer_Krista.png" }
-              ].map((product, index) => (
-                <div key={index} className="flex-shrink-0 w-64">
-                  <div className="rounded-lg p-4 h-80 flex items-center justify-center mb-3">
-          <Image
-                      src={product.img}
-                      alt={product.name}
-                      width={300}
-                      height={420}
-                      className="h-72 w-auto object-contain"
-                      priority={index < 2}
-                    />
-                  </div>
-                  <div className="text-center">
-                    <h3 className="font-bold text-brown-800 mb-1">NARI</h3>
-                    <p className="text-brown-700 mb-2">{product.name}</p>
-                    <div className="flex items-center justify-center space-x-2">
-                      <span className="font-bold text-brown-800">{product.price}</span>
-                      <span className="text-brown-600">🔔</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
+
+             {/* Date Indicators */}
+            <div className="flex justify-between px-4 mb-4 text-sm text-brown-600 font-semibold">
+              <div>{todayLabel}</div>
+              <div>{yesterdayLabel}</div>
             </div>
-            
-            {/* Navigation Arrows */}
-            <div className="absolute right-4 top-1/2 transform -translate-y-1/2 flex space-x-2">
-              <button className="bg-brown-100 hover:bg-brown-200 p-2 rounded-lg">
-                <svg className="w-4 h-4 text-brown-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <button className="bg-brown-100 hover:bg-brown-200 p-2 rounded-lg">
-                <svg className="w-4 h-4 text-brown-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
-            
-            {/* Date Indicators */}
-            <div className="absolute left-4 top-4 text-sm text-brown-600">{todayLabel}</div>
-            <div className="absolute right-4 top-4 text-sm text-brown-600">{yesterdayLabel}</div>
-          </div>
+
+            <ProductCarousel products={featuredProducts} />
         </div>
       </section>
 
@@ -157,39 +154,50 @@ export default function HomePage() {
           </div>
           
           {/* NARI Description */}
-          <div className="mb-8">
-            <h3 className="text-3xl font-bold text-brown-800 mb-4">NARI</h3>
-            <p className="text-brown-700 text-lg leading-relaxed max-w-4xl">
-              Nari comes from Japanese Hiragana, なり, and it means "to be" or "become". 
-              The characters represent my friends and their current or dream career starter pack. 
-              It's inspired by the ChatGPT starter pack image generation of figurines resembling 
-              the user and their career of choice featuring 3-4 items.
-            </p>
+          <div className=" product-card mb-8">
+            {/* <div className="background-accent"></div> */}
+              <div className="product-description">
+                <h3 className="text-8xl font-bold text-brown-900 mb-4">NARI</h3>
+                <p className="text-FCF7D9 text-lg leading-relaxed max-w-4xl">
+                  Nari comes from Japanese Hiragana, なり, and it means "to be" or "become". 
+                  The characters represent my friends and their current or dream career starter pack. 
+                  It's inspired by the ChatGPT starter pack image generation of figurines resembling 
+                  the user and their career of choice featuring 3-4 items.
+                </p>
+              </div>
+              <img src="/images/Lawyer_Krista.png" alt="Lawyer pack" className="product-image"/>
           </div>
           
-          {/* Product Carousel */}
+          {/* Get to know them - Static Product Carousel */}
           <div className="relative mb-8">
             <div className="flex space-x-6 overflow-x-auto pb-4">
               {[
-                "NARI Photographer Pack",
-                "NARI Chef",
-                "NARI Pageant Director", 
-                "NARI Software Engineer",
-                "NARI Hotel Hostess",
-                "NARI Lawyer Pack"
+                { name: "Photographer", price: "$15.99", img: "/images/Photographer_May_see.png" },
+                { name: "Chef", price: "$15.99", img: "/images/Chef_Anne.png" },
+                { name: "Pageant Director", price: "$15.99", img: "/images/Paegent_Director_Mercy_Beret.png" }, 
+                {name: "Software Engineer", price: "$15.99", img: "/images/Swe_Jessica_main.png"},
+                { name: "Hotel Hostess", price: "$15.99", img: "/images/Hotel-Hostess-Eileen.png" },
               ].map((product, index) => (
                 <div key={index} className="flex-shrink-0 w-64">
-                  <div className="bg-olive-200 rounded-lg p-4 h-48 flex items-center justify-center mb-3">
-                    <div className="text-center text-brown-700">
-                      <div className="text-4xl mb-2">📦</div>
-                      <p className="text-sm">Product Pack</p>
-                    </div>
+                  <div className="rounded-lg p-4 h-80 flex items-center justify-center mb-3">
+          <Image
+                      src={product.img}
+                      alt={product.name}
+                      width={300}
+                      height={420}
+                      className="h-72 w-auto object-contain"
+                      priority={index < 2}
+                    />
                   </div>
                   <div className="text-center">
-                    <h3 className="font-bold text-brown-800">{product}</h3>
+                    <h3 className="font-bold text-brown-800 mb-1">NARI</h3>
+                    <p className="text-brown-700 mb-2">{product.name}</p>
+                    <div className="flex items-center justify-center space-x-2">
+                      <span className="font-bold text-brown-800">{product.price}</span>
+                    </div>
                   </div>
                 </div>
-              ))}
+              ))})
             </div>
           </div>
           

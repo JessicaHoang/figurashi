@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
-import { Inter, Noto_Sans_JP } from 'next/font/google'
+// import { Inter, Noto_Sans_JP } from 'next/font/google'
+import { Epilogue, Nunito } from 'next/font/google';
 import './globals.css'
 import Navigation from '@/components/Navigation'
 
-const inter = Inter({ subsets: ['latin'] })
-const notoSansJP = Noto_Sans_JP({ 
+const epilogue = Epilogue({ subsets: ['latin'] })
+const nunito = Nunito({ 
   subsets: ['latin'],
   weight: ['400', '500', '700'],
   variable: '--font-japanese'
@@ -23,7 +24,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${notoSansJP.variable}`}>
+      <body className={`${epilogue.className} ${nunito.variable}`}>
         <Navigation />
         {children}
       </body>
