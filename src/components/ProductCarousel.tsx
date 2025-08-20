@@ -4,7 +4,7 @@ import { useRef } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Swiper as SwiperType } from 'swiper'
 import { Navigation } from 'swiper/modules'
-import { Product } from '@/components/ProductCard' // or wherever your type lives
+import { Product } from '@/components/ProductCard'
 import 'swiper/css'
 
 

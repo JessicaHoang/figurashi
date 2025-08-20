@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { Product } from '@/components/ProductCard'
 
 // This page uses Hybrid rendering - it will be statically generated but can be revalidated
 export const revalidate = 1800 // Revalidate every 30 minutes

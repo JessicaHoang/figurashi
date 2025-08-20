@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useRef } from "react";
 import Footer from '@/components/Footer'
 import ProductCarousel from '@/components/ProductCarousel'
+import ProductCard from '@/components/ProductCard';
 
 // This page uses Hybrid ISR - it will be statically generated but can be revalidated
 export const revalidate = 3600 // Revalidate every hour
@@ -26,16 +27,24 @@ export default function HomePage() {
   const carouselRef = useRef<HTMLDivElement>(null);
 
   const featuredProducts = [
-    { name: 'Pageant Director', price: '$15.99', img: '/images/products/Paegent_Director_Mercy_Beret.png', slug: "pageantdirector" },
-    { name: 'Software Engineer', price: '$15.99', img: '/images/products/Swe_Jessica_main.png', slug: 'softwaredeveloper' },
+    { name: 'Pageant Director', price: '$15.99', img: '/images/products/Paegent_Director_Mercy_Beret.png', slug: "pageant-director" },
+    { name: 'Software Engineer', price: '$15.99', img: '/images/products/Swe_Jessica_main.png', slug: 'software-developer' },
     { name: 'Chef', price: '$15.99', img: '/images/products/Chef_Anne.png', slug: "chef" },
-    { name: 'Hotel Hostess', price: '$15.99', img: '/images/products/Hotel-Hostess-Eileen.png', slug: "hotelhostess" },
+    { name: 'Hotel Hostess', price: '$15.99', img: '/images/products/Hotel-Hostess-Eileen.png', slug: "hotel-hostess" },
     { name: 'Photographer', price: '$15.99', img: '/images/products/Photographer_May_see.png', slug: "photographer" },
     { name: 'Lawyer', price: '$15.99', img: '/images/products/Lawyer_Krista.png', slug: "lawyer" },
-    { name: 'Software Engineer 2', price: '$15.99', img: "/images/products/Swe_Jessica_VN.png", slug: "softwaredeveloper2" },
-    { name: 'Pageant Director 2', price: '$15.99', img: '/images/products/Pagaent_Director_Mercy_traditional_garment.png', slug: "pageantdirector2" },
-    { name: 'Software Engineer 3', price: '$15.99', img: "/images/products/Swe_Jessica_short.png", slug: "softwaredeveloper3" },
-    { name: 'Software Engineer 4', price: '$15.99', img: "/images/products/Swe_Jessica_dark.png", slug: "softwaredeveloper4" },
+    { name: 'Software Engineer 2', price: '$15.99', img: "/images/products/Swe_Jessica_VN.png", slug: "software-developer-2" },
+    { name: 'Pageant Director 2', price: '$15.99', img: '/images/products/Pagaent_Director_Mercy_traditional_garment.png', slug: "pageant-director-2" },
+    { name: 'Software Engineer 3', price: '$15.99', img: "/images/products/Swe_Jessica_short.png", slug: "software-developer-3" },
+    { name: 'Software Engineer 4', price: '$15.99', img: "/images/products/Swe_Jessica_dark.png", slug: "software-developer-4" },
+  ]
+
+  const getToKnowTheProducts = [
+    { name: "Photographer", price: "$15.99", img: "/images/products/Photographer_May_see.png", slug: "photographer" },
+    { name: "Chef", price: "$15.99", img: "/images/products/Chef_Anne.png", slug: "chef" },
+    { name: "Pageant Director", price: "$15.99", img: "/images/products/Paegent_Director_Mercy_Beret.png", slug: "pageant-director" },
+    { name: "Software Engineer", price: "$15.99", img: "/images/products/Swe_Jessica_main.png", slug: "software-developer" },
+    { name: "Hotel Hostess", price: "$15.99", img: "/images/products/Hotel-Hostess-Eileen.png", slug: "hotel-hostess" },
   ]
 
   return (
@@ -123,7 +132,6 @@ export default function HomePage() {
               <div>{todayLabel}</div>
               <div>{yesterdayLabel}</div>
             </div>
-
             <ProductCarousel products={featuredProducts} />
         </div>
       </section>
@@ -169,33 +177,13 @@ export default function HomePage() {
           {/* Get to know them - Static Product Carousel */}
           <div className="product-carousel-card relative mb-8">
             <div className="flex space-x-6 overflow-x-auto pb-4">
-              {[
-                { name: "Photographer", price: "$15.99", img: "/images/products/Photographer_May_see.png" },
-                { name: "Chef", price: "$15.99", img: "/images/products/Chef_Anne.png" },
-                { name: "Pageant Director", price: "$15.99", img: "/images/products/Paegent_Director_Mercy_Beret.png" }, 
-                { name: "Software Engineer", price: "$15.99", img: "/images/products/Swe_Jessica_main.png"},
-                { name: "Hotel Hostess", price: "$15.99", img: "/images/products/Hotel-Hostess-Eileen.png" },
-              ].map((product, index) => (
-                <div key={index} className="flex-shrink-0 w-64">
-                  <div className="rounded-lg p-4 h-80 flex items-center justify-center mb-3">
-          <Image
-                      src={product.img}
-                      alt={product.name}
-                      width={300}
-                      height={420}
-                      className="h-72 w-auto object-contain"
-                      priority={index < 2}
-                    />
-                  </div>
-                  <div className="text-center">
-                    <h3 className="font-bold #FCF7D9 mb-1">NARI</h3>
-                    <p className=" #FCF7D9 mb-2">{product.name}</p>
-                    <div className="flex items-center justify-center space-x-2">
-                      <span className="font-bold #FCF7D9">{product.price}</span>
-                    </div>
-                  </div>
-                </div>
-              ))})
+            {getToKnowTheProducts.map((product, index) => (
+              <ProductCard
+                key={product.name}
+                {...product}
+                priority={index < 2}
+              />
+            ))}
             </div>
           </div>
           
