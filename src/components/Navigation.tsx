@@ -14,7 +14,7 @@ export default function Navigation() {
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <Image
-              src="/images/logo button.svg"
+              src="/images/buttons/logo button.svg"
               alt="FIGURASHI Logo"
               width={150}
               height={50}
@@ -26,7 +26,7 @@ export default function Navigation() {
           <div className="hidden md:flex items-center space-x-3">
             <Link href="/new" className="hover:opacity-80 transition-opacity">
               <Image
-                src="/images/New & Featured button.svg"
+                src="/images/buttons/New & Featured button.svg"
                 alt="New & Featured"
                 width={180}
                 height={40}
@@ -36,7 +36,7 @@ export default function Navigation() {
             
             <Link href="/categories" className="hover:opacity-80 transition-opacity">
               <Image
-                src="/images/Categories button.svg"
+                src="/images/buttons/Categories button.svg"
                 alt="Categories"
                 width={130}
                 height={40}
@@ -46,7 +46,7 @@ export default function Navigation() {
             
             <Link href="/characters" className="hover:opacity-80 transition-opacity">
               <Image
-                src="/images/Characters button.svg"
+                src="/images/buttons/Characters button.svg"
                 alt="Characters"
                 width={130}
                 height={40}
@@ -57,7 +57,7 @@ export default function Navigation() {
             {/* Search Bar */}
             <div className="relative mx-4">
               <Image
-                src="/images/search button longer version.svg"
+                src="/images/buttons/search button longer version.svg"
                 alt="Search"
                 width={250}
                 height={40}
@@ -67,7 +67,7 @@ export default function Navigation() {
 
             <Link href="/auth" className="hover:opacity-80 transition-opacity">
               <Image
-                src="/images/Register button.svg"
+                src="/images/buttons/Register button.svg"
                 alt="Sign in/Register"
                 width={180}
                 height={40}
@@ -78,7 +78,7 @@ export default function Navigation() {
             {/* Cart Icon */}
             <Link href="/cart" className="hover:opacity-80 transition-opacity">
               <Image
-                src="/images/shopping cart button.svg"
+                src="/images/buttons/shopping cart button.svg"
                 alt="Shopping Cart"
                 width={40}
                 height={40}
@@ -89,7 +89,7 @@ export default function Navigation() {
             {/* Wishlist Icon */}
             <Link href="/wishlist" className="hover:opacity-80 transition-opacity">
               <Image
-                src="/images/wishlist button.svg"
+                src="/images/buttons/wishlist button.svg"
                 alt="Wishlist"
                 width={40}
                 height={40}
@@ -99,7 +99,7 @@ export default function Navigation() {
             
             <Link href="/support" className="hover:opacity-80 transition-opacity">
               <Image
-                src="/images/Support button.svg"
+                src="/images/buttons/Support button.svg"
                 alt="Support"
                 width={100}
                 height={40}
@@ -125,7 +125,7 @@ export default function Navigation() {
             <div className="flex flex-col space-y-4">
               <Link href="/new" className="flex justify-center">
                 <Image
-                  src="/images/New & Featured button.svg"
+                  src="/images/buttons/New & Featured button.svg"
                   alt="New & Featured"
                   width={180}
                   height={40}
@@ -134,7 +134,7 @@ export default function Navigation() {
               </Link>
               <Link href="/categories" className="flex justify-center">
                 <Image
-                  src="/images/Categories button.svg"
+                  src="/images/buttons/Categories button.svg"
                   alt="Categories"
                   width={130}
                   height={40}
@@ -143,7 +143,7 @@ export default function Navigation() {
               </Link>
               <Link href="/characters" className="flex justify-center">
                 <Image
-                  src="/images/Characters button.svg"
+                  src="/images/buttons/Characters button.svg"
                   alt="Characters"
                   width={130}
                   height={40}
@@ -152,7 +152,7 @@ export default function Navigation() {
               </Link>
               <Link href="/auth" className="flex justify-center">
                 <Image
-                  src="/images/Register button.svg"
+                  src="/images/buttons/Register button.svg"
                   alt="Sign in/Register"
                   width={180}
                   height={40}
@@ -161,7 +161,7 @@ export default function Navigation() {
               </Link>
               <Link href="/support" className="flex justify-center">
                 <Image
-                  src="/images/Support button.svg"
+                  src="/images/buttons/Support button.svg"
                   alt="Support"
                   width={100}
                   height={40}

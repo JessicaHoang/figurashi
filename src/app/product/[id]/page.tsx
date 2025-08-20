@@ -7,13 +7,14 @@ export const revalidate = 1800 // Revalidate every 30 minutes
 // Mock product data - in a real app, this would come from a database
 const products = [
   {
-    id: 1,
-    name: "NARI - Developer",
+    id: "softwaredeveloper",
+    name: "NARI - Software Developer",
     description: "Code your dreams into reality",
+    slug: "softwaredeveloper",
     longDescription: "This figure represents the journey of becoming a developer. With detailed craftsmanship, it captures the essence of coding, problem-solving, and building digital solutions. Perfect for developers and aspiring programmers.",
-    price: 49.99,
+    price: 15.99,
     category: "tech",
-    image: "/api/placeholder/400/500",
+    image: "/images/products/Swe_Jessica_main.png",
     inStock: true,
     features: [
       "High-quality PVC material",
