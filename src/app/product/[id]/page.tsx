@@ -8,7 +8,7 @@ export const revalidate = 1800 // Revalidate every 30 minutes
 // Mock product data - in a real app, this would come from a database
 const products = [
   {
-    id: "softwaredeveloper",
+    id: "software-developer",
     name: "NARI - Software Developer",
     description: "Code your dreams into reality",
     slug: "softwaredeveloper",
