@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useRef } from "react";
 import Footer from '@/components/Footer'
+import CarouselCard from '@/components/CarouselCard';
 import ProductCarousel from '@/components/ProductCarousel'
 import ProductCard from '@/components/ProductCard';
 
@@ -26,6 +27,7 @@ export default function HomePage() {
   // To make the carousel scrollable
   const carouselRef = useRef<HTMLDivElement>(null);
 
+  // todo: needs to be refactored to use ProductCard
   const featuredProducts = [
     { name: 'Pageant Director', price: '$15.99', img: '/images/products/Paegent_Director_Mercy_Beret.png', slug: "pageant-director" },
     { name: 'Software Engineer', price: '$15.99', img: '/images/products/Swe_Jessica_main.png', slug: 'software-developer' },
@@ -39,6 +41,7 @@ export default function HomePage() {
     { name: 'Software Engineer 4', price: '$15.99', img: "/images/products/Swe_Jessica_dark.png", slug: "software-developer-4" },
   ]
 
+  // todo: needs to be refactored to sue ProductCard
   const getToKnowTheProducts = [
     { name: "Photographer", price: "$15.99", img: "/images/products/Photographer_May_see.png", slug: "photographer" },
     { name: "Chef", price: "$15.99", img: "/images/products/Chef_Anne.png", slug: "chef" },

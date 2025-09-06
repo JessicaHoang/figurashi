@@ -1,65 +1,26 @@
+"use client";
 import Link from 'next/link'
+import ProductCard from '@/components/ProductCard' // adjust path as needed
+import type { Product } from '@/components/types/product'
+import { useState } from 'react'
+
 
 // This page uses Hybrid rendering - it will be statically generated but can be revalidated
 export const revalidate = 1800 // Revalidate every 30 minutes
 
 // Mock product data - in a real app, this would come from a database
-const products = [
-  {
-    id: 1,
-    name: "NARI - Developer",
-    description: "Code your dreams into reality",
-    price: 49.99,
-    category: "tech",
-    image: "/api/placeholder/300/400",
-    inStock: true
-  },
-  {
-    id: 2,
-    name: "NARI - Designer", 
-    description: "Create beautiful experiences",
-    price: 49.99,
-    category: "creative",
-    image: "/api/placeholder/300/400",
-    inStock: true
-  },
-  {
-    id: 3,
-    name: "NARI - Entrepreneur",
-    description: "Build your own empire",
-    price: 49.99,
-    category: "business",
-    image: "/api/placeholder/300/400",
-    inStock: true
-  },
-  {
-    id: 4,
-    name: "NARI - Artist",
-    description: "Express your creativity",
-    price: 49.99,
-    category: "creative",
-    image: "/api/placeholder/300/400",
-    inStock: false
-  },
-  {
-    id: 5,
-    name: "NARI - Scientist",
-    description: "Discover the unknown",
-    price: 49.99,
-    category: "tech",
-    image: "/api/placeholder/300/400",
-    inStock: true
-  },
-  {
-    id: 6,
-    name: "NARI - Chef",
-    description: "Craft culinary masterpieces",
-    price: 49.99,
-    category: "creative",
-    image: "/api/placeholder/300/400",
-    inStock: true
-  }
-]
+
+type ProductCardProps = {
+  product: Product
+  nameClassName?: string
+  priceClassName?: string
+}
+
+type Props = {
+  products: Product[]
+  nameClassName?: string
+  priceClassName?: string
+}
 
 const categories = [
   { id: 'all', name: 'All Categories' },
@@ -68,7 +29,29 @@ const categories = [
   { id: 'business', name: 'Business' }
 ]
 
-export default function CatalogPage() {
+export default function CatalogPage({ products = [] }: Props) {
+  // state to track selected filters
+const [selectedTags, setSelectedTags] = useState<string[]>([])
+
+// handler for the filters
+const toggleTag = (tag: string) => {
+  setSelectedTags((prev: string[]) =>
+    prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+  )
+}
+
+// render tag filters
+const allTags = Array.from(
+  new Set(products.flatMap((product) => product.tags ?? []))
+)
+
+// filter Products based on tags. Before rendering your grid
+const filteredProducts = selectedTags.length === 0
+  ? products
+  : products.filter((product) =>
+      product.tags?.some((tag) => selectedTags.includes(tag))
+    )
+
   return (
     <main className="min-h-screen bg-secondary-50">
       {/* Header */}
@@ -88,66 +71,36 @@ export default function CatalogPage() {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Filters Sidebar */}
           <div className="lg:w-1/4">
-            <div className="bg-white rounded-lg shadow-sm p-6">
-              <h2 className="text-xl font-semibold text-secondary-800 mb-4">
-                Categories
-              </h2>
-              <div className="space-y-2">
-                {categories.map((category) => (
-                  <button
-                    key={category.id}
-                    className="block w-full text-left px-3 py-2 rounded-lg hover:bg-secondary-100 transition-colors"
-                  >
-                    {category.name}
-                  </button>
-                ))}
-              </div>
-              
-              <div className="mt-6 pt-6 border-t border-secondary-200">
-                <h3 className="text-lg font-semibold text-secondary-800 mb-3">
-                  Price Range
-                </h3>
-                <div className="space-y-2">
-                  <label className="flex items-center">
-                    <input type="checkbox" className="mr-2" />
-                    Under $25
-                  </label>
-                  <label className="flex items-center">
-                    <input type="checkbox" className="mr-2" />
-                    $25 - $50
-                  </label>
-                  <label className="flex items-center">
-                    <input type="checkbox" className="mr-2" />
-                    Over $50
-                  </label>
-                </div>
-              </div>
-
-              <div className="mt-6 pt-6 border-t border-secondary-200">
-                <h3 className="text-lg font-semibold text-secondary-800 mb-3">
-                  Availability
-                </h3>
-                <label className="flex items-center">
-                  <input type="checkbox" className="mr-2" />
-                  In Stock Only
-                </label>
-              </div>
+            <div className="flex flex-wrap gap-2 mb-6">
+              {allTags.map((tag) => (
+                <button
+                  key={tag}
+                  onClick={() => toggleTag(tag)}
+                  className={`px-3 py-1 rounded-full text-sm font-medium ${
+                    selectedTags.includes(tag)
+                      ? 'bg-primary-600 text-white'
+                      : 'bg-secondary-100 text-secondary-700'
+                  }`}
+                >
+                  {tag}
+                </button>
+              ))}
             </div>
           </div>
 
           {/* Products Grid */}
           <div className="lg:w-3/4">
-            <div className="flex justify-between items-center mb-6">
-              <p className="text-secondary-600">
-                Showing {products.length} products
-              </p>
-              <select className="border border-secondary-300 rounded-lg px-3 py-2">
-                <option>Sort by: Featured</option>
-                <option>Price: Low to High</option>
-                <option>Price: High to Low</option>
-                <option>Name: A to Z</option>
-              </select>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredProducts.map((product) => (
+                <ProductCard
+                  key={product.slug}
+                  product={product}
+                  nameClassName="text-secondary-800"
+                  priceClassName="text-primary-600"
+                />
+              ))}
             </div>
+
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {products.map((product) => (
