@@ -193,16 +193,8 @@ export default function HomePage() {
           </div>
           
           {/* Get to know them - Static Product Carousel */}
-          <div className="product-carousel-card relative mb-8">
-            <div className="flex space-x-6 overflow-x-auto pb-4">
-            {/* {getToKnowTheProducts.map((product, index) => (
-              <ProductCard
-                key={product.name}
-                {...product}
-                priority={index < 2}
-              />
-            ))} */}
-            </div>
+          <div>
+            <ProductCarousel />
           </div>
           
           <div className="text-center">
