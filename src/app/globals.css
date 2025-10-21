@@ -64,6 +64,31 @@ body {
   pointer-events: none;
 } */
 
+.product-card-carousel img {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  margin-bottom: 25px;
+}
+
+.product-card-carousel {
+  background-color: transparent;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  color:#762e12;
+  text-align: center;
+  align-items: center;
+}
+
+.product-card-carousel h2,
+.product-card-carousel h3,
+.product-card-carousel p {
+  margin: 4px 0;
+  color:#762e12;
+  padding: 0.25px;
+}
+
 .product-image {
   width: 250px;
   height: auto;

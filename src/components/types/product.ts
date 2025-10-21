@@ -7,9 +7,19 @@ export type Product = {
     img: string
     slug: string
     description?: string
+
+    // Customer-facing tags for filtering/search
     tags?: string[] // e.g. ['Designer Figurines', 'NARI']
+
+    // Internal display logic/ layout decisions
+    displayFlags?: {
+      featured?: boolean;
+      showInLanding?: boolean;
+      highlight?: boolean;
+    }
     priority?: boolean
     inStock?: boolean
+    createdAt?: string;
   }
 
   

@@ -3,9 +3,10 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useRef } from "react";
 import Footer from '@/components/Footer'
-import CarouselCard from '@/components/CarouselCard';
-import ProductCarousel from '@/components/ProductCarousel'
-import ProductCard from '@/components/ProductCard';
+// import CarouselCard from '@/components/carousel/CreatorCard';
+import ProductCarousel from '@/components/carousel/ProductCarousel'
+// import ProductCard from '@/components/carousel/ProductCard';
+import Carousel from '@/components/carousel/CreatorCarousel';
 
 // This page uses Hybrid ISR - it will be statically generated but can be revalidated
 export const revalidate = 3600 // Revalidate every hour
@@ -23,23 +24,34 @@ export default function HomePage() {
   yesterday.setDate(today.getDate() - 1)
   const todayLabel = formatDateAsMmDdYy(today)
   const yesterdayLabel = formatDateAsMmDdYy(yesterday)
-  
+
+  // to make the website responsive
+  const responsive = {
+    0: { products: 1 },
+    568: { products: 4 },
+    1024: { products: 5 },
+  };
+
+  // product list
+  const products = [
+    { id: "1", }
+  ]
   // To make the carousel scrollable
-  const carouselRef = useRef<HTMLDivElement>(null);
+  // const carouselRef = useRef<HTMLDivElement>(null);
 
   // todo: needs to be refactored to use ProductCard
-  const featuredProducts = [
-    { name: 'Pageant Director', price: '$15.99', img: '/images/products/Paegent_Director_Mercy_Beret.png', slug: "pageant-director" },
-    { name: 'Software Engineer', price: '$15.99', img: '/images/products/Swe_Jessica_main.png', slug: 'software-developer' },
-    { name: 'Chef', price: '$15.99', img: '/images/products/Chef_Anne.png', slug: "chef" },
-    { name: 'Hotel Hostess', price: '$15.99', img: '/images/products/Hotel-Hostess-Eileen.png', slug: "hotel-hostess" },
-    { name: 'Photographer', price: '$15.99', img: '/images/products/Photographer_May_see.png', slug: "photographer" },
-    { name: 'Lawyer', price: '$15.99', img: '/images/products/Lawyer_Krista.png', slug: "lawyer" },
-    { name: 'Software Engineer 2', price: '$15.99', img: "/images/products/Swe_Jessica_VN.png", slug: "software-developer-2" },
-    { name: 'Pageant Director 2', price: '$15.99', img: '/images/products/Pagaent_Director_Mercy_traditional_garment.png', slug: "pageant-director-2" },
-    { name: 'Software Engineer 3', price: '$15.99', img: "/images/products/Swe_Jessica_short.png", slug: "software-developer-3" },
-    { name: 'Software Engineer 4', price: '$15.99', img: "/images/products/Swe_Jessica_dark.png", slug: "software-developer-4" },
-  ]
+  // const featuredProducts: Product[] = [
+  //   { name: 'Pageant Director', price: '$15.99', img: '/images/products/Paegent_Director_Mercy_Beret.png', slug: "pageant-director" },
+  //   { name: 'Software Engineer', price: '$15.99', img: '/images/products/Swe_Jessica_main.png', slug: 'software-developer' },
+  //   { name: 'Chef', price: '$15.99', img: '/images/products/Chef_Anne.png', slug: "chef" },
+  //   { name: 'Hotel Hostess', price: '$15.99', img: '/images/products/Hotel-Hostess-Eileen.png', slug: "hotel-hostess" },
+  //   { name: 'Photographer', price: '$15.99', img: '/images/products/Photographer_May_see.png', slug: "photographer" },
+  //   { name: 'Lawyer', price: '$15.99', img: '/images/products/Lawyer_Krista.png', slug: "lawyer" },
+  //   { name: 'Software Engineer 2', price: '$15.99', img: "/images/products/Swe_Jessica_VN.png", slug: "software-developer-2" },
+  //   { name: 'Pageant Director 2', price: '$15.99', img: '/images/products/Pagaent_Director_Mercy_traditional_garment.png', slug: "pageant-director-2" },
+  //   { name: 'Software Engineer 3', price: '$15.99', img: "/images/products/Swe_Jessica_short.png", slug: "software-developer-3" },
+  //   { name: 'Software Engineer 4', price: '$15.99', img: "/images/products/Swe_Jessica_dark.png", slug: "software-developer-4" },
+  // ]
 
   // todo: needs to be refactored to sue ProductCard
   const getToKnowTheProducts = [
@@ -90,7 +102,7 @@ export default function HomePage() {
             </h1>
             
             {/* CTA Button */}
-            <Link href="/catalog" className="hover:opacity-80 transition-opacity flex justify-center">
+            {/* <Link href="/catalog" className="hover:opacity-80 transition-opacity flex justify-center">
           <Image
                 src="/images/buttons/Check it out button.svg"
                 alt="Check it out here!"
@@ -98,7 +110,7 @@ export default function HomePage() {
                 height={48}
                 className="h-12 w-auto"
               />
-            </Link>
+            </Link> */}
           </div>
         </div>
       </section>
@@ -128,6 +140,8 @@ export default function HomePage() {
             <Link href="/calendar" className="text-brown-800 underline hover:text-brown-600">
               Release Calendar &gt;
             </Link>
+            
+
           </div>
 
              {/* Date Indicators */}
@@ -135,7 +149,8 @@ export default function HomePage() {
               <div>{todayLabel}</div>
               <div>{yesterdayLabel}</div>
             </div>
-            <ProductCarousel products={featuredProducts} />
+            {/* <ProductCarousel products={featuredProducts} /> */}
+            <ProductCarousel />
         </div>
       </section>
 
@@ -180,13 +195,13 @@ export default function HomePage() {
           {/* Get to know them - Static Product Carousel */}
           <div className="product-carousel-card relative mb-8">
             <div className="flex space-x-6 overflow-x-auto pb-4">
-            {getToKnowTheProducts.map((product, index) => (
+            {/* {getToKnowTheProducts.map((product, index) => (
               <ProductCard
                 key={product.name}
                 {...product}
                 priority={index < 2}
               />
-            ))}
+            ))} */}
             </div>
           </div>
           
