@@ -4,14 +4,24 @@ import Image from 'next/image'
 import { useRef } from "react";
 import Footer from '@/components/Footer'
 // import CarouselCard from '@/components/carousel/CreatorCard';
-import ProductCarousel from '@/components/carousel/ProductCarousel'
+import ProductCarousel, {CarouselHandle} from '@/components/carousel/ProductCarousel';
 // import ProductCard from '@/components/carousel/ProductCard';
 import Carousel from '@/components/carousel/CreatorCarousel';
+import dynamic from 'next/dynamic'; // to fix the Hydration errors (https://nextjs.org/docs/messages/react-hydration-error)
+import 'react-alice-carousel/lib/alice-carousel.css';
+
 
 // This page uses Hybrid ISR - it will be statically generated but can be revalidated
 export const revalidate = 3600 // Revalidate every hour
 
 export default function HomePage() {
+  // CarouselRef to use buttons to scroll through ProductCarousel
+  const carouselRef = useRef<CarouselHandle>(null);
+  // fixes hydration error
+  const ProductCarouselNoSSR = dynamic(
+    () => import('@/components/carousel/ProductCarousel'),
+    { ssr: false, loading: () => <p>Loading...</p> }
+  );
   // Format dates as MM.DD.YY and compute today/yesterday
   const formatDateAsMmDdYy = (date: Date): string => {
     const month = String(date.getMonth() + 1).padStart(2, '0')
@@ -144,13 +154,29 @@ export default function HomePage() {
 
           </div>
 
-             {/* Date Indicators */}
-            <div className="flex justify-between px-4 mb-4 text-sm text-brown-600 font-semibold">
-              <div>{todayLabel}</div>
-              <div>{yesterdayLabel}</div>
-            </div>
-            {/* <ProductCarousel products={featuredProducts} /> */}
-            <ProductCarousel />
+      {/* Header Row with Dates + Navigation */}
+      <div className="flex justify-between items-center px-4 mb-2">
+        <div className="text-sm text-brown-600 font-semibold">{todayLabel}</div>
+        <div className="flex-grow mx-4 border-t border-brown-300" />
+        <div className="text-sm text-brown-600 font-semibold">{yesterdayLabel}</div>
+        <button onClick={() => {
+          console.log('Parent button clicked', carouselRef.current);
+          carouselRef.current?.slidePrev()}
+        }
+           className="carousel-nav prev">
+            <img src="/images/buttons/left-arrow-button.svg" alt="Prev" width={24} height={24}/>
+          </button>
+          <button onClick={() => {
+            console.log('Parent button clicked', carouselRef.current);
+            carouselRef.current?.slideNext()}
+          }
+             className="carousel-nav next">
+            <img src="/images/buttons/right-arrow-button.svg" alt="Next" width={24} height={24}/>
+          </button>
+      </div>
+
+      {/*  <ProductCarousel products={featuredProducts} /> */}
+        <ProductCarouselNoSSR ref={carouselRef}/>
         </div>
       </section>
 
