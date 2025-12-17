@@ -3,25 +3,14 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useRef } from "react";
 import Footer from '@/components/Footer'
-// import CarouselCard from '@/components/carousel/CreatorCard';
-import ProductCarousel, {CarouselHandle} from '@/components/carousel/ProductCarousel';
-// import ProductCard from '@/components/carousel/ProductCard';
-import Carousel from '@/components/carousel/CreatorCarousel';
-import dynamic from 'next/dynamic'; // to fix the Hydration errors (https://nextjs.org/docs/messages/react-hydration-error)
-import 'react-alice-carousel/lib/alice-carousel.css';
+import ProductCarousel from '@/components/carousel/ProductCarousel/ProductCarousel';
+import ProductCard from '@/components/carousel/ProductCarousel/ProductCard';
 
 
 // This page uses Hybrid ISR - it will be statically generated but can be revalidated
 export const revalidate = 3600 // Revalidate every hour
 
 export default function HomePage() {
-  // CarouselRef to use buttons to scroll through ProductCarousel
-  const carouselRef = useRef<CarouselHandle>(null);
-  // fixes hydration error
-  const ProductCarouselNoSSR = dynamic(
-    () => import('@/components/carousel/ProductCarousel'),
-    { ssr: false, loading: () => <p>Loading...</p> }
-  );
   // Format dates as MM.DD.YY and compute today/yesterday
   const formatDateAsMmDdYy = (date: Date): string => {
     const month = String(date.getMonth() + 1).padStart(2, '0')
@@ -42,26 +31,22 @@ export default function HomePage() {
     1024: { products: 5 },
   };
 
-  // product list
-  const products = [
-    { id: "1", }
-  ]
   // To make the carousel scrollable
   // const carouselRef = useRef<HTMLDivElement>(null);
 
   // todo: needs to be refactored to use ProductCard
-  // const featuredProducts: Product[] = [
-  //   { name: 'Pageant Director', price: '$15.99', img: '/images/products/Paegent_Director_Mercy_Beret.png', slug: "pageant-director" },
-  //   { name: 'Software Engineer', price: '$15.99', img: '/images/products/Swe_Jessica_main.png', slug: 'software-developer' },
-  //   { name: 'Chef', price: '$15.99', img: '/images/products/Chef_Anne.png', slug: "chef" },
-  //   { name: 'Hotel Hostess', price: '$15.99', img: '/images/products/Hotel-Hostess-Eileen.png', slug: "hotel-hostess" },
-  //   { name: 'Photographer', price: '$15.99', img: '/images/products/Photographer_May_see.png', slug: "photographer" },
-  //   { name: 'Lawyer', price: '$15.99', img: '/images/products/Lawyer_Krista.png', slug: "lawyer" },
-  //   { name: 'Software Engineer 2', price: '$15.99', img: "/images/products/Swe_Jessica_VN.png", slug: "software-developer-2" },
-  //   { name: 'Pageant Director 2', price: '$15.99', img: '/images/products/Pagaent_Director_Mercy_traditional_garment.png', slug: "pageant-director-2" },
-  //   { name: 'Software Engineer 3', price: '$15.99', img: "/images/products/Swe_Jessica_short.png", slug: "software-developer-3" },
-  //   { name: 'Software Engineer 4', price: '$15.99', img: "/images/products/Swe_Jessica_dark.png", slug: "software-developer-4" },
-  // ]
+  const featuredProducts = [
+    { id: "1", title: 'Pageant Director', series: 'NARI', price: '$15.99', img: '/images/products/Paegent_Director_Mercy_Beret.png', slug: "pageant-director" },
+    { id: "2", title: 'Software Engineer', series: 'NARI', price: '$15.99', img: '/images/products/Swe_Jessica_main.png', slug: 'software-developer' },
+    { id: "3", title: 'Chef', series: 'NARI',  price: '$15.99', img: '/images/products/Chef_Anne.png', slug: "chef" },
+    { id: "4", title: 'Hotel Hostess', series: 'NARI',  price: '$15.99', img: '/images/products/Hotel-Hostess-Eileen.png', slug: "hotel-hostess" },
+    { id: "5", title: 'Photographer', series: 'NARI',  price: '$15.99', img: '/images/products/Photographer_May_see.png', slug: "photographer" },
+    { id: "6", title: 'Lawyer', series: 'NARI',  price: '$15.99', img: '/images/products/Lawyer_Krista.png', slug: "lawyer" },
+    { id: "7", title: 'Software Engineer 2', series: 'NARI',  price: '$15.99', img: "/images/products/Swe_Jessica_VN.png", slug: "software-developer-2" },
+    { id: "8", title: 'Pageant Director 2', series: 'NARI', price: '$15.99', img: '/images/products/Pagaent_Director_Mercy_traditional_garment.png', slug: "pageant-director-2" },
+    { id: "9", title: 'Software Engineer 3', series: 'NARI', price: '$15.99', img: "/images/products/Swe_Jessica_short.png", slug: "software-developer-3" },
+    { id: "10", title: 'Software Engineer 4', series: 'NARI', price: '$15.99', img: "/images/products/Swe_Jessica_dark.png", slug: "software-developer-4" },
+  ]
 
   // todo: needs to be refactored to sue ProductCard
   const getToKnowTheProducts = [
@@ -71,6 +56,11 @@ export default function HomePage() {
     { name: "Software Engineer", price: "$15.99", img: "/images/products/Swe_Jessica_main.png", slug: "software-developer" },
     { name: "Hotel Hostess", price: "$15.99", img: "/images/products/Hotel-Hostess-Eileen.png", slug: "hotel-hostess" },
   ]
+
+// mapping products
+const featuredItems = featuredProducts.map((product) =>(
+  <ProductCard key={product.id} {...product} />
+));
 
   return (
     <main className="min-h-screen pt-16" style={{ backgroundColor: '#FCF7D9' }}>
@@ -112,7 +102,7 @@ export default function HomePage() {
             </h1>
             
             {/* CTA Button */}
-            {/* <Link href="/catalog" className="hover:opacity-80 transition-opacity flex justify-center">
+            <Link href="/catalog" className="hover:opacity-80 transition-opacity flex justify-center">
           <Image
                 src="/images/buttons/Check it out button.svg"
                 alt="Check it out here!"
@@ -120,7 +110,7 @@ export default function HomePage() {
                 height={48}
                 className="h-12 w-auto"
               />
-            </Link> */}
+            </Link>
           </div>
         </div>
       </section>
@@ -159,7 +149,7 @@ export default function HomePage() {
         <div className="text-sm text-brown-600 font-semibold">{todayLabel}</div>
         <div className="flex-grow mx-4 border-t border-brown-300" />
         <div className="text-sm text-brown-600 font-semibold">{yesterdayLabel}</div>
-        <button onClick={() => {
+        {/* <button onClick={() => {
           console.log('Parent button clicked', carouselRef.current);
           carouselRef.current?.slidePrev()}
         }
@@ -172,11 +162,11 @@ export default function HomePage() {
           }
              className="carousel-nav next">
             <img src="/images/buttons/right-arrow-button.svg" alt="Next" width={24} height={24}/>
-          </button>
+          </button> */}
       </div>
 
       {/*  <ProductCarousel products={featuredProducts} /> */}
-        <ProductCarouselNoSSR ref={carouselRef}/>
+        <ProductCarousel items={featuredItems} showNav={true} />
         </div>
       </section>
 
@@ -220,7 +210,7 @@ export default function HomePage() {
           
           {/* Get to know them - Static Product Carousel */}
           <div>
-            <ProductCarousel />
+          <ProductCarousel items={featuredItems} showNav={true} />
           </div>
           
           <div className="text-center">

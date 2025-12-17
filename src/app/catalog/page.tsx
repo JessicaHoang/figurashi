@@ -1,6 +1,6 @@
 "use client";
 import Link from 'next/link'
-import ProductCard from '@/components/carousel/ProductCard' // adjust path as needed
+import ProductCard from '@/components/carousel/ProductCarousel/ProductCard' // adjust path as needed
 import type { Product } from '@/components/types/product'
 import { useState } from 'react'
 

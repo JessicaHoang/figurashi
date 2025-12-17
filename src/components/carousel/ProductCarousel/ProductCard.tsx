@@ -3,6 +3,7 @@
 // ProductCard, the image and information of each product
 
 import React from 'react';
+import Link from 'next/link';
 // import './ProductCard.css';
 
 type ProductCardProps = {
@@ -18,6 +19,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   id, title, series, price, img, slug
 }) =>
   <div className="product-card-carousel group">
+    <Link href={`/${series}/${slug}`}>
       <img 
       src={img} 
       alt={title}
@@ -26,6 +28,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <h2>{series}</h2>
       <h3>{title}</h3>
       <p>{price}</p>
+    </Link>
   </div>
 
   export default ProductCard;

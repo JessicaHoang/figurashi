@@ -1,0 +1,40 @@
+.carouselWrapper {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .embla {
+    overflow: hidden;
+  }
+  
+  .emblaContainer {
+    display: flex;
+    gap: 0;
+    padding: 0;
+  }
+  
+  .emblaSlide {
+    flex: 0 0 calc(25% - 80px);
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+  }
+  
+  .navButtons {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+  }
+
+  .navButtons button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
