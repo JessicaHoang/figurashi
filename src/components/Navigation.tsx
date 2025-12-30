@@ -24,7 +24,7 @@ export default function Navigation() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-3">
-            <Link href="/new" className="hover:opacity-80 transition-opacity">
+            <Link href="/new-featured" className="hover:opacity-80 transition-opacity">
               <Image
                 src="/images/buttons/New & Featured button.svg"
                 alt="New & Featured"

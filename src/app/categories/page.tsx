@@ -1,7 +1,7 @@
 "use client";
 import Link from 'next/link'
-import ProductCard from '@/components/carousel/ProductCarousel/ProductCard' // adjust path as needed
-import type { Product } from '@/components/types/product'
+import ProductCard from '@/components/carousel/ProductCarousel/ProductCard';
+// import type {Product} from '@/components/types/product';
 import { useState } from 'react'
 
 
@@ -10,17 +10,35 @@ export const revalidate = 1800 // Revalidate every 30 minutes
 
 // Mock product data - in a real app, this would come from a database
 
-// type ProductCardProps = {
-//   product: Product
-//   nameClassName?: string
-//   priceClassName?: string
-// }
+// const products: Product[] = [
+//   id: '1',
+//   title: 'NARI - Software Developer',
+//   price: 15.99,
+//   img: '/images/products/Swe_Jessica_main.png',
+//   slug: 'software-developer',
+//   series: 'NARI',
+//   description: 'Code your dreams into reality',
+//   tags: ['Technology', 'Developer', 'Code'],
+// ]
 
-// type Props = {
-//   products: Product[]
-//   nameClassName?: string
-//   priceClassName?: string
-// }
+import type { Product } from '@/components/types/product';
+
+const products: Product[] = [
+  { id: "1", 
+    title: "Software Engineer Pack", 
+    price: 24.99, 
+    slug: "software-engineer-pack", 
+    img: "/images/products/software-pack.png" },
+    { id: "2", title: 'Software Engineer', series: 'NARI', price: 15.99, img: '/images/products/Swe_Jessica_main.png', slug: 'software-developer' },
+    { id: "3", title: 'Chef', series: 'NARI',  price: 15.99, img: '/images/products/Chef_Anne.png', slug: "chef" },
+    { id: "4", title: 'Hotel Hostess', series: 'NARI',  price: 15.99, img: '/images/products/Hotel-Hostess-Eileen.png', slug: "hotel-hostess" },
+    { id: "5", title: 'Photographer', series: 'NARI',  price: 15.99, img: '/images/products/Photographer_May_see.png', slug: "photographer" },
+    { id: "6", title: 'Lawyer', series: 'NARI',  price: 15.99, img: '/images/products/Lawyer_Krista.png', slug: "lawyer" },
+    { id: "7", title: 'Software Engineer 2', series: 'NARI',  price: 15.99, img: "/images/products/Swe_Jessica_VN.png", slug: "software-developer-2" },
+    { id: "8", title: 'Pageant Director 2', series: 'NARI', price: 15.99, img: '/images/products/Pagaent_Director_Mercy_traditional_garment.png', slug: "pageant-director-2" },
+    { id: "9", title: 'Software Engineer 3', series: 'NARI', price: 15.99, img: "/images/products/Swe_Jessica_short.png", slug: "software-developer-3" },
+    { id: "10", title: 'Software Engineer 4', series: 'NARI', price: 15.99, img: "/images/products/Swe_Jessica_dark.png", slug: "software-developer-4" },
+];
 
 const categories = [
   { id: 'all', name: 'All Categories' },
@@ -39,18 +57,6 @@ const toggleTag = (tag: string) => {
     prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
   )
 }
-
-// render tag filters
-// const allTags = Array.from(
-//   new Set(products.flatMap((product) => product.tags ?? []))
-// )
-
-// filter Products based on tags. Before rendering your grid
-// const filteredProducts = selectedTags.length === 0
-//   ? products
-//   : products.filter((product) =>
-//       product.tags?.some((tag) => selectedTags.includes(tag))
-//     )
 
   return (
     <main className="min-h-screen bg-secondary-50">

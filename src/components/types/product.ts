@@ -2,7 +2,8 @@
 // how to import: import type { Product } from '@/types/product'
 export type Product = {
     id: string
-    name: string
+    title: string
+    series?: string
     price: number
     img: string
     slug: string
