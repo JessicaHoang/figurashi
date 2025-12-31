@@ -5,6 +5,9 @@ import { useRef } from "react";
 import Footer from '@/components/Footer'
 import ProductCarousel from '@/components/carousel/ProductCarousel/ProductCarousel';
 import ProductCard from '@/components/carousel/ProductCarousel/ProductCard';
+import { featuredProducts } from '@/components/data/inventory';
+import ArtistIntroCard from "@/components/carousel/ArtistIntroCardCarousel/ArtistIntroCard";
+
 
 
 // This page uses Hybrid ISR - it will be statically generated but can be revalidated
@@ -33,20 +36,6 @@ export default function HomePage() {
 
   // To make the carousel scrollable
   // const carouselRef = useRef<HTMLDivElement>(null);
-
-  // todo: needs to be refactored to use ProductCard
-  const featuredProducts = [
-    { id: "1", title: 'Pageant Director', series: 'NARI', price: 15.99, img: '/images/products/Paegent_Director_Mercy_Beret.png', slug: "pageant-director" },
-    { id: "2", title: 'Software Engineer', series: 'NARI', price: 15.99, img: '/images/products/Swe_Jessica_main.png', slug: 'software-developer' },
-    { id: "3", title: 'Chef', series: 'NARI',  price: 15.99, img: '/images/products/Chef_Anne.png', slug: "chef" },
-    { id: "4", title: 'Hotel Hostess', series: 'NARI',  price: 15.99, img: '/images/products/Hotel-Hostess-Eileen.png', slug: "hotel-hostess" },
-    { id: "5", title: 'Photographer', series: 'NARI',  price: 15.99, img: '/images/products/Photographer_May_see.png', slug: "photographer" },
-    { id: "6", title: 'Lawyer', series: 'NARI',  price: 15.99, img: '/images/products/Lawyer_Krista.png', slug: "lawyer" },
-    { id: "7", title: 'Software Engineer 2', series: 'NARI',  price: 15.99, img: "/images/products/Swe_Jessica_VN.png", slug: "software-developer-2" },
-    { id: "8", title: 'Pageant Director 2', series: 'NARI', price: 15.99, img: '/images/products/Pagaent_Director_Mercy_traditional_garment.png', slug: "pageant-director-2" },
-    { id: "9", title: 'Software Engineer 3', series: 'NARI', price: 15.99, img: "/images/products/Swe_Jessica_short.png", slug: "software-developer-3" },
-    { id: "10", title: 'Software Engineer 4', series: 'NARI', price: 15.99, img: "/images/products/Swe_Jessica_dark.png", slug: "software-developer-4" },
-  ]
 
   // todo: needs to be refactored to sue ProductCard
   const getToKnowTheProducts = [
@@ -101,7 +90,7 @@ const featuredItems = featuredProducts.map((product) => (
             </h1>
             
             {/* CTA Button */}
-            <Link href="/catalog" className="hover:opacity-80 transition-opacity flex justify-center">
+            <Link href="/categories" className="hover:opacity-80 transition-opacity flex justify-center">
           <Image
                 src="/images/buttons/Check it out button.svg"
                 alt="Check it out here!"
@@ -213,7 +202,7 @@ const featuredItems = featuredProducts.map((product) => (
           </div>
           
           <div className="text-center">
-          <Link href="/catalog" className="hover:opacity-80 transition-opacity flex justify-center">
+          <Link href="/categories" className="hover:opacity-80 transition-opacity flex justify-center">
           <Image
                 src="/images/buttons/View More button.svg"
                 alt="Check it out here!"
@@ -227,31 +216,21 @@ const featuredItems = featuredProducts.map((product) => (
       </section>
 
       {/* Our Artists Section */}
-      <section className="py-16" style={{ backgroundColor: '#FCF7D9' }}>
-        <div className="container mx-auto px-4">
+      <section className="w-full flex justify-center py-16" style={{ backgroundColor: '#FCF7D9' }}>
+        <div className="container mx-auto max-w-4xl w-full px-4">
           <h2 className="text-4xl font-bold text-brown-800 mb-8">
-            Our Artists
+            Our Creators
           </h2>
           
           <div className="relative">
             <div className="flex space-x-8">
-              {[1, 2].map((artist) => (
-                <div key={artist} className="flex-shrink-0 w-96">
-                  <div className="flex space-x-4">
-                    <div className="w-24 h-24 bg-brown-200 rounded-lg flex items-center justify-center">
-                      <div className="text-3xl text-brown-600">👤</div>
-                    </div>
-                    <div className="flex-1 bg-orange-100 rounded-lg p-4">
-                      <h3 className="font-bold text-brown-800 mb-2">Person {artist}</h3>
-                      <p className="text-brown-700 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
+              <div className="px-6 py-12">
+                <ArtistIntroCard />
+              </div>
             </div>
             
             {/* Navigation Arrows */}
-            <div className="absolute right-4 top-1/2 transform -translate-y-1/2 flex space-x-2">
+            {/* <div className="absolute right-4 top-1/2 transform -translate-y-1/2 flex space-x-2">
               <button className="bg-brown-100 hover:bg-brown-200 p-2 rounded-lg">
                 <svg className="w-4 h-4 text-brown-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -262,7 +241,7 @@ const featuredItems = featuredProducts.map((product) => (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
